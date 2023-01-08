@@ -7,23 +7,24 @@ class Node:
 class Stack:
     def __init__(self) -> None:
         self.head = None
+        self.length = 0
 
     def push(self, data):
         _node = Node(data)
         _node.next = self.head
         self.head = _node
+        self.length += 1
 
     def pop(self):
         if self.head:
             to_return = self.head.data
             self.head = self.head.next
             return to_return
+            self.length -= 1
         return None
 
     def peek(self):
-        if self.head:
-            return self.head.data
-        return None
+        return self.head.data
 
     def _traverse(self):
         cnode = self.head

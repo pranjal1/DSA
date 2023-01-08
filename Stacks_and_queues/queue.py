@@ -8,8 +8,10 @@ class Queue:
     def __init__(self) -> None:
         self.head = None
         self.tail = None
+        self.length = 0
 
     def queue(self, data):
+        self.length += 1
         _node = Node(data)
         if not self.head:
             self.head = _node
@@ -19,6 +21,7 @@ class Queue:
         self.tail = _node
 
     def dequeue(self):
+        self.length -= 1
         if not self.head:
             return
         to_return = self.head.data
@@ -26,9 +29,7 @@ class Queue:
         return to_return
 
     def peek(self):
-        if self.head:
-            return self.head.data
-        return None
+        return self.head.data
 
 
 if __name__ == "__main__":

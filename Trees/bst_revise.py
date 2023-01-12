@@ -5,12 +5,29 @@ class Node:
         self.right = None
 
 
+# lookup
+# insert
+
+
 class BST:
     def __init__(self) -> None:
         self.root = None
 
+    def lookup(self, data):
+        if not self.root:
+            return
+
+        cnode = self.root
+        while cnode:
+            if cnode.data == data:
+                return cnode
+            elif cnode.data > data:
+                cnode = cnode.left
+            else:
+                cnode = cnode.right
+        return None
+
     def insert(self, data):
-        # O(log n)
         _node = Node(data)
         if not self.root:
             self.root = _node
@@ -19,41 +36,23 @@ class BST:
         cnode = self.root
         while cnode:
             if cnode.data < data:
-                if not cnode.right:
+                if cnode.right is None:
                     cnode.right = _node
                     return
                 cnode = cnode.right
             else:
-                if not cnode.left:
+                if cnode.left is None:
                     cnode.left = _node
                     return
                 cnode = cnode.left
 
-    def lookup(self, value):
-        # returns the node if match is found, else None??
-        if not self.root:
-            return None
-        cnode = self.root
-        while cnode:
-            if cnode.data == value:
-                return cnode
-            elif cnode.data > value:
-                cnode = cnode.left
-            else:
-                cnode = cnode.right
-
-    def remove(self, data):
-        #     # O(log n)
-        #     # in order succesor needs to replace the deleted node
-        #     # https://visualgo.net/en/bst?slide=1
-        pass
-
-    def traverse(self, node):
+    def inorder_traverse(self, node):
+        # dfs
         if not node:
             return
-        self.traverse(node.left)
-        print("node data --> ", node.data)
-        self.traverse(node.right)
+        self.inorder_traverse(node.left)
+        print(node.data)
+        self.inorder_traverse(node.right)
 
 
 if __name__ == "__main__":
@@ -66,7 +65,7 @@ if __name__ == "__main__":
     bst.insert(120)
     bst.insert(170)
     bst.insert(20)
-    bst.traverse(bst.root)
+    bst.inorder_traverse(bst.root)
     print("------------------")
     bst = BST()
     bst.insert(100)
@@ -77,9 +76,8 @@ if __name__ == "__main__":
     bst.insert(20)
     bst.insert(170)
     bst.insert(120)
-    bst.traverse(bst.root)
-    # print("------------")
-    # print(bst.lookup(120).data)
+    bst.inorder_traverse(bst.root)
     print("------------")
-    print(bst.remove(100))
-    # bst.traverse(bst.root)
+    print(bst.lookup(120).data)
+    print("------------")
+    print(bst.lookup(121).data)
